@@ -80,7 +80,7 @@ class TodoController extends Controller
         $editTodo = Todo::find($id);
         if ($editTodo) {
             $editTodo->is_completed = $request->is_completed ? 1 : 0;
-            $editTodo->title = $request->title;
+            // $editTodo->title = $request->title;
             $editTodo->save();
             return $editTodo;
         } else {

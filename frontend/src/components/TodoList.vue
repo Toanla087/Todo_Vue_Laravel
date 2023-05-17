@@ -17,7 +17,7 @@
                         <input type="checkbox" v-model="task.is_completed" class="check-list" @click="updateTask(task.id)">
                         <input type="text" v-model="task.title" :disabled="inputDisabled" class="todo-name todo-item">
                         <button @click="removeTask(task.id)" class=" remove-btn">Remove</button>
-                        <button @click="updateTask(task.id)" class=" remove-btn">Edit</button>
+                        <!-- <button @click="updateTask(task.id)" class=" remove-btn">Edit</button> -->
                     </div>
                 </div>
             </div>
@@ -75,15 +75,16 @@
         updateTask: function(id) {
             const newTask = this.tasks;
             newTask.is_completed = !newTask.is_completed;
-            //newTask.title = this.tasks.title;
+            // newTask.title = newTask.title;
             axios.put(`http://127.0.0.1:8000/api/todos/` + id, {
-                // title: this.task.title,
-                is_completed: !newTask.is_completed
+                // title: newTask.title,
+                is_completed: newTask.is_completed
             })
             .then((resp) => {
                 this.tasks = this.tasks.map(task => {
                 if (task.id === id) {
                     task.is_completed = !task.is_completed;
+                    task.title = resp.data
                 }
 
                 return task;
